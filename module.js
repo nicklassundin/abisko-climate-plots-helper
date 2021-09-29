@@ -1,3 +1,5 @@
+// Mix of function that was built early in the project big TODO
+
 const regression = require("regression");
 Date.prototype.addDays = function (days) {
 	const date = new Date(this.valueOf());
