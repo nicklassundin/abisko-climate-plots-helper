@@ -1,0 +1,25 @@
+{
+  "name": "helper",
+  "version": "0.0.1",
+  "description": "a bounce of unorgenized helper function for Abisko-climate-plots project, some legacy some not. alot of work to be done. hopefully some day it will be usefull",
+  "main": "module.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/nicklassundin/abisko-climate-plots-helper.git"
+  },
+  "keywords": [
+    "helper",
+    "abisko",
+    "climate",
+    "plots"
+  ],
+  "author": "Nicklas Sundin Johansson & Anton Eriksson",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/nicklassundin/abisko-climate-plots-helper/issues"
+  },
+  "homepage": "https://github.com/nicklassundin/abisko-climate-plots-helper#readme"
+}
