@@ -44,6 +44,36 @@ Array.prototype.rotate = (function () {
 	};
 
 }());
+const summerMonths = [
+	"jun",
+	"jul",
+	"aug",
+	"sep"
+]
+const winterMonths = [
+	"oct",
+	"nov",
+	"dec",
+	"jan",
+	"feb",
+	"mar",
+	"apr",
+	"may"
+]
+const monthName = (month) => ({
+		"jan": "January",
+		"feb": "February",
+		"mar": "March",
+		"apr": "April",
+		"may": "May",
+		"jun": "June",
+		"jul": "July",
+		"aug": "August",
+		"sep": "September",
+		"oct": "October",
+		"nov": "November",
+		"dec": "December"
+	})[month]
 const t = {
 	"t05": [
 		0,
@@ -91,36 +121,9 @@ module.exports = {
 		"dec"
 	],
 	monthByIndex: (index) => this.months()[index],
-	monthName: (month) => ({
-		"jan": "January",
-		"feb": "February",
-		"mar": "March",
-		"apr": "April",
-		"may": "May",
-		"jun": "June",
-		"jul": "July",
-		"aug": "August",
-		"sep": "September",
-		"oct": "October",
-		"nov": "November",
-		"dec": "December"
-	})[month],
-	summerMonths: [
-		"jun",
-		"jul",
-		"aug",
-		"sep"
-	],
-	winterMonths: [
-		"oct",
-		"nov",
-		"dec",
-		"jan",
-		"feb",
-		"mar",
-		"apr",
-		"may"
-	],
+	summerMonths: summerMonths,
+	winterMonths: winterMonths,
+	monthName: monthName,
 	summerRange: `${monthName(summerMonths[0])} to ${monthName(summerMonths[summerMonths.length - 1])}`,
 	winterRange: `${monthName(winterMonths[0])} to ${monthName(winterMonths[summerMonths.length - 1])}`,
 	isSummerMonth: (month) => this.summerMonths.includes(month),
@@ -161,7 +164,7 @@ module.exports = {
 	sum: (values) => values.reduce(
 		(sum, current) => sum + current,
 		0
-	);
+	),
 	min: (values) => values.reduce(
 		(min, current) => Math.min(
 			min,
@@ -182,7 +185,7 @@ module.exports = {
 		}
 		return sum(values) / values.length;
 	},
-	mean: this.average;
+	mean: this.average,
 	movingAverage: (values, index, number) => this.average(values.slice(
 		Math.max(
 			index - number,
@@ -349,13 +352,13 @@ module.exports = {
 		year,
 		0,
 		dayOfYear
-	);
+	),
 	parseNumber: (string) => parseFloat(string.replace(
 		",",
 		"."
 	)) || undefined,
 
-	linearRegression = (xs, ys) => {
+	linearRegression: (xs, ys) => {
 
 		const data = xs.map((x, index) => [
 			x,
