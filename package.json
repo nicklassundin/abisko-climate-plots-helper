@@ -1,10 +1,10 @@
 {
-  "name": "abisko-climate-plots-helper",
+  "name": "climate-plots-helper",
   "version": "1.0.0",
   "description": "a bounce of unorgenized helper function for Abisko-climate-plots project, some legacy some not. alot of work to be done. hopefully some day it will be usefull",
   "main": "module.js",
   "scripts": {
-    "test": "mocha" 
+    "test": "mocha"
   },
   "repository": {
     "type": "git",
@@ -26,5 +26,9 @@
     "mocha": "^9.1.2",
     "npm": "^7.24.1",
     "regression": "^2.0.1"
-  }
+  },
+  "directories": {
+    "test": "test"
+  },
+  "devDependencies": {}
 }
