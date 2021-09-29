@@ -1,7 +1,7 @@
 {
   "name": "climate-plots-helper",
   "version": "1.0.0",
-  "description": "a bounce of unorgenized helper function for Abisko-climate-plots project, some legacy some not. alot of work to be done. hopefully some day it will be usefull",
+  "description": "a bounce of unorgenized helper function for Abisko-climate-plots project, some legacy some not. alot of work to be done. hopefully some day it will be usefull.",
   "main": "module.js",
   "scripts": {
     "test": "mocha"
