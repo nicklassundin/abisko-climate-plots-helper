@@ -101,6 +101,12 @@ const t = {
 	]
 };
 // const useWebWorker = true,
+const average = (values) => {
+		if (values.length === 0) {
+			return 0;
+		}
+		return sum(values) / values.length;
+	};
 
 module.exports = {
 	isFirstHalfYear: function (month) {
@@ -180,13 +186,8 @@ module.exports = {
 		),
 		-Infinity
 	),
-	average: (values) => {
-		if (values.length === 0) {
-			return 0;
-		}
-		return sum(values) / values.length;
-	},
-	mean: this.average,
+	average: average,
+	mean: average,
 	movingAverage: (values, index, number) => this.average(values.slice(
 		Math.max(
 			index - number,
