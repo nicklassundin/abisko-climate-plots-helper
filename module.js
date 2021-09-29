@@ -161,6 +161,10 @@ const variance = (values) => sumSquareDistance(
 		average(values)
 	) / (values.length - 1)
 const withinBaselinePeriod = (year) => year >= baselineLower && year <= baselineUpper
+const sum = (values) => values.reduce(
+		(sum, current) => sum + current,
+		0
+	)
 module.exports = {
 	isFirstHalfYear: function (month) {
 		return month < 7;
@@ -187,10 +191,7 @@ module.exports = {
 	seasons: seasons,
 	getSeasonByIndex: (month) => Object.keys(seasons).filter((key) => seasons[key].includes(monthByIndex(month)))[0],
 
-	sum: (values) => values.reduce(
-		(sum, current) => sum + current,
-		0
-	),
+	sum: sum,
 	min: (values) => values.reduce(
 		(min, current) => Math.min(
 			min,
