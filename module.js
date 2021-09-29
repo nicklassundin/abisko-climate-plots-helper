@@ -100,20 +100,7 @@ const t = {
 		2.086
 	]
 };
-// const useWebWorker = true,
-const average = (values) => {
-		if (values.length === 0) {
-			return 0;
-		}
-		return sum(values) / values.length;
-	};
-
-module.exports = {
-	isFirstHalfYear: function (month) {
-		return month < 7;
-
-	},
-	months: () => [
+const months = () => [
 		"jan",
 		"feb",
 		"mar",
@@ -126,25 +113,16 @@ module.exports = {
 		"oct",
 		"nov",
 		"dec"
-	],
-	monthByIndex: (index) => this.months()[index],
-	summerMonths: summerMonths,
-	winterMonths: winterMonths,
-	monthName: monthName,
-	summerRange: `${monthName(summerMonths[0])} to ${monthName(summerMonths[summerMonths.length - 1])}`,
-	winterRange: `${monthName(winterMonths[0])} to ${monthName(winterMonths[summerMonths.length - 1])}`,
-	isSummerMonth: (month) => this.summerMonths.includes(month),
-	isWinterMonth: (month) => this.winterMonths.includes(month),
-	// Var isSummerMonthByIndex = month => isSummerMonth(monthByIndex(month));
-	isSummerMonthByIndex: (month) => isSummerMonth(monthByIndex(month)),
+	]
+// const useWebWorker = true,
+const average = (values) => {
+		if (values.length === 0) {
+			return 0;
+		}
+		return sum(values) / values.length;
+	};
 
-	/*
-	 * Exports.isSummerMonthByIndex = isSummerMonthByIndex;
-	 * Var isWinterMonthByIndex = month => isWinterMonth(monthByIndex(month));
-	 */
-	isWinterMonthByIndex: (month) => isWinterMonth(monthByIndex(month)),
-	// Exports.isWinterMonthByIndex = isWinterMonthByIndex;
-	seasons: {
+const seasons = {
 		"spring": [
 			"mar",
 			"apr",
@@ -165,8 +143,49 @@ module.exports = {
 			"jan",
 			"feb"
 		]
+	}
+const monthByIndex = (index) => months()[index]
+const movingAverage = (values, index, number) => average(values.slice(
+		Math.max(
+			index - number,
+			0
+		),
+		index
+	))
+const sumSquareDistance = (values, mean) => values.reduce(
+		(sum, value) => sum + (value - mean) ** 2,
+		0
+	)
+const variance = (values) => sumSquareDistance(
+		values,
+		average(values)
+	) / (values.length - 1)
+const withinBaselinePeriod = (year) => year >= baselineLower && year <= baselineUpper
+module.exports = {
+	isFirstHalfYear: function (month) {
+		return month < 7;
+
 	},
-	getSeasonByIndex: (month) => Object.keys(this.seasons).filter((key) => this.seasons[key].includes(this.monthByIndex(month)))[0],
+	months: months,
+	monthByIndex: monthByIndex, 
+	summerMonths: summerMonths,
+	winterMonths: winterMonths,
+	monthName: monthName,
+	summerRange: `${monthName(summerMonths[0])} to ${monthName(summerMonths[summerMonths.length - 1])}`,
+	winterRange: `${monthName(winterMonths[0])} to ${monthName(winterMonths[summerMonths.length - 1])}`,
+	isSummerMonth: (month) => summerMonths.includes(month),
+	isWinterMonth: (month) => winterMonths.includes(month),
+	// Var isSummerMonthByIndex = month => isSummerMonth(monthByIndex(month));
+	isSummerMonthByIndex: (month) => isSummerMonth(monthByIndex(month)),
+
+	/*
+	 * Exports.isSummerMonthByIndex = isSummerMonthByIndex;
+	 * Var isWinterMonthByIndex = month => isWinterMonth(monthByIndex(month));
+	 */
+	isWinterMonthByIndex: (month) => isWinterMonth(monthByIndex(month)),
+	// Exports.isWinterMonthByIndex = isWinterMonthByIndex;
+	seasons: seasons,
+	getSeasonByIndex: (month) => Object.keys(seasons).filter((key) => seasons[key].includes(monthByIndex(month)))[0],
 
 	sum: (values) => values.reduce(
 		(sum, current) => sum + current,
@@ -188,31 +207,19 @@ module.exports = {
 	),
 	average: average,
 	mean: average,
-	movingAverage: (values, index, number) => this.average(values.slice(
-		Math.max(
-			index - number,
-			0
-		),
-		index
-	)),
-	movingAverages: (values, number) => values.map((_, index) => this.movingAverage(
+	movingAverage: movingAverage,
+	movingAverages: (values, number) => values.map((_, index) => movingAverage(
 		values,
 		index,
 		number
 	)),
-	varianceMovAvg: (values, number) => values.map((_, index) => this.variance(values.slice(Math.max(
+	varianceMovAvg: (values, number) => values.map((_, index) => variance(values.slice(Math.max(
 		index - number,
 		0
 	)).map((each) => each.y))),
 	difference: (values, baseline) => values.map((value) => value - baseline),
-	sumSquareDistance: (values, mean) => values.reduce(
-		(sum, value) => sum + (value - mean) ** 2,
-		0
-	),
-	variance: (values) => sumSquareDistance(
-		values,
-		this.average(values)
-	) / (values.length - 1),
+	sumSquareDistance: sumSquareDistance,
+	variance: variance, 
 	confidenceInterval: (mean, variance, count, td = t.t05) => {
 		const zs = [
 			0,
@@ -282,10 +289,10 @@ module.exports = {
 	 * Exports.baselineLower = 1961;
 	 * Exports.baselineUpper = 1990;
 	 */
-	withinBaselinePeriod: (year) => year >= baselineLower && year <= baselineUpper,
 	// TODO currying
+	withinBaselinePeriod: withinBaselinePeriod,
 	getDiff: function (values) {
-		const result = values.filter((each) => this.withinBaselinePeriod(each.x)),
+		const result = values.filter((each) => withinBaselinePeriod(each.x)),
 			count = result.length;
 		console.log(result);
 		const sum = result.map((each) => each.y).reduce(
