@@ -23,6 +23,7 @@
   },
   "homepage": "https://github.com/nicklassundin/abisko-climate-plots-helper#readme",
   "dependencies": {
+    "npm": "^7.24.1",
     "regression": "^2.0.1"
   }
 }
