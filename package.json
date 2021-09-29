@@ -1,5 +1,5 @@
 {
-  "name": "helper",
+  "name": "abisko-climate-plots-helper",
   "version": "0.0.1",
   "description": "a bounce of unorgenized helper function for Abisko-climate-plots project, some legacy some not. alot of work to be done. hopefully some day it will be usefull",
   "main": "module.js",
