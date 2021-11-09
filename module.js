@@ -318,10 +318,18 @@ module.exports = {
 			date[1] = date[2] = 0;
 
 		}
+		var day = Number(date[2]);
+		if(day){
+			var tmp = day.split(T);
+			day = Number(tmp[0]);
+			time = tmp[1].split(':');
+		}
 		return {
 			"year": Number(date[0]),
 			"month": Number(date[1]),
-			"day": Number(date[2])
+			"day": Number(date[2]),
+			"hour": time[0],
+			"min": time[1],
 		};
 
 	},
@@ -329,7 +337,9 @@ module.exports = {
 	createDate: (date) => new Date(
 		date.year,
 		date.month - 1,
-		date.day
+		date.day,
+		date.hour,
+		date.min
 	),
 	weekNumber: (date) => {
 		const d = new Date(Date.UTC(
