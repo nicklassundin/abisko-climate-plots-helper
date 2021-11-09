@@ -319,17 +319,19 @@ module.exports = {
 
 		}
 		var day = Number(date[2]);
-		if(day){
-			var tmp = day.split(T);
+		var time;
+		if(!day){
+			var tmp = date[2].split('T');
 			day = Number(tmp[0]);
 			time = tmp[1].split(':');
+			time[2] = time[2].split('.')[0]
 		}
 		return {
 			"year": Number(date[0]),
 			"month": Number(date[1]),
-			"day": Number(date[2]),
-			"hour": time[0],
-			"min": time[1],
+			"day": day, 
+			"hour": time ? Number(time[0]) : undefined,
+			"min": time ? Number(time[1]) : undefined,
 		};
 
 	},
