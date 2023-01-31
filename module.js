@@ -7,6 +7,13 @@ Date.prototype.addDays = function (days) {
 };
 Date.prototype.getWeekNumber = function (date = this) {
 
+	date = new Date(currentDate.getFullYear(), 0, 1);
+	let days = Math.floor((currentDate - startDate) /
+		(24 * 60 * 60 * 1000));
+
+	let weekNumber = Math.ceil(days / 7);
+	return weekNumber
+	/*
 	const d = new Date(Date.UTC(
 		date.getFullYear(),
 		this.getMonth(),
@@ -20,7 +27,7 @@ Date.prototype.getWeekNumber = function (date = this) {
 		1
 	));
 	return Math.ceil(((d - yearStart) / 86400000 + 1) / 7);
-
+	 */
 };
 Array.prototype.rotate = (function () {
 
