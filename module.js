@@ -5,29 +5,9 @@ Date.prototype.addDays = function (days) {
 	date.setDate(date.getDate() + days);
 	return date;
 };
-Date.prototype.getWeekNumber = function (date = this) {
-
-	date = new Date(currentDate.getFullYear(), 0, 1);
-	let days = Math.floor((currentDate - startDate) /
-		(24 * 60 * 60 * 1000));
-
-	let weekNumber = Math.ceil(days / 7);
-	return weekNumber
-	/*
-	const d = new Date(Date.UTC(
-		date.getFullYear(),
-		this.getMonth(),
-		this.getDate()
-	)),
-		dayNum = d.getUTCDay() || 7;
-	d.setUTCDate(d.getUTCDate() + 4 - dayNum);
-	const yearStart = new Date(Date.UTC(
-		d.getUTCFullYear(),
-		0,
-		1
-	));
-	return Math.ceil(((d - yearStart) / 86400000 + 1) / 7);
-	 */
+Date.prototype.getWeekNumber = function (currentDate = this) {
+	let startDate = new Date(this.getFullYear(),0,1);
+	return Math.ceil((((this - startDate) / 86400000) + startDate.getDay()+1)/7);
 };
 Array.prototype.rotate = (function () {
 
